@@ -43,20 +43,27 @@
     padding: 3vh 4vw;
     text-align:center;
   }
+  .header-block{
+    background: radial-gradient(ellipse at center, rgba(7,10,18,0.72) 0%, rgba(7,10,18,0.4) 70%, rgba(7,10,18,0) 100%);
+    padding: 2.4vh 5vw 2.8vh;
+    border-radius: 12px;
+  }
   .eyebrow{
     font-family:'Cinzel', serif; letter-spacing:0.26em; font-size:clamp(10px,1.1vw,13px);
     color: var(--gold); text-transform:uppercase; margin-bottom:1.2vh;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
   }
   .eyebrow::before, .eyebrow::after{ content:"♛"; margin:0 12px; font-size:0.8em; opacity:0.7; }
   h1{
     font-family:'Cinzel', serif; font-weight:800;
     font-size: clamp(30px, 4.6vw, 58px); line-height:1.05;
     color: var(--gold-bright);
-    text-shadow: 0 0 40px rgba(0,0,0,0.6);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.95), 0 0 50px rgba(0,0,0,0.85);
   }
   .sub{
     font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500;
-    font-size: clamp(14px, 1.5vw, 20px); color:#e6dcc0; margin-top:1vh; max-width:640px;
+    font-size: clamp(14px, 1.5vw, 20px); color:#f3ecda; margin-top:1vh; max-width:640px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.95);
   }
 
   .grid{
@@ -120,7 +127,14 @@
     position:absolute; bottom: 14px; left:0; right:0;
     text-align:center; z-index:2;
   }
-  footer p{ font-family:'Cinzel',serif; font-size:10.5px; letter-spacing:0.14em; color:#a2916a; text-transform:uppercase; }
+  footer p{
+    display:inline-block;
+    font-family:'Cinzel',serif; font-size:10.5px; letter-spacing:0.14em; color:#c9bb92; text-transform:uppercase;
+    background: rgba(7,10,18,0.65);
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+  }
 
   @media (max-width: 760px){
     html,body{ overflow-y:auto; height:auto; }
@@ -135,9 +149,11 @@
 <body>
   <div class="bg"></div>
   <div class="stage">
-    <div class="eyebrow">Um guia definitivo</div>
-    <h1>Manual do Humano</h1>
-    <p class="sub">Como treinar seu dono em 30 dias — narrado com orgulho por Corona.</p>
+    <div class="header-block">
+      <div class="eyebrow">Um guia definitivo</div>
+      <h1>Manual do Humano</h1>
+      <p class="sub">Como treinar seu dono em 30 dias — narrado com orgulho por Corona.</p>
+    </div>
 
     <div class="grid">
       <div class="card">
