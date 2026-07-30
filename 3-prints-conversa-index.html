@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Humano — Todo mundo tá comentando</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0e12;
+    --bg2:#16161c;
+    --bubble-them:#25252e;
+    --bubble-me:#3b7cff;
+    --ig1:#f58529; --ig2:#dd2a7b; --ig3:#8134af;
+    --text:#f2f2f5;
+    --text-dim:#9a9aa5;
+    --green:#25d366;
+    --gold:#f5c451;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+  }
+  .display{font-family:'Fraunces', serif;}
+  .wrap{max-width:880px; margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+
+  .topbar{padding:18px 0; border-bottom:1px solid #232329;}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center;}
+  .topbar .brand{font-family:'Fraunces'; font-weight:700; font-size:19px;}
+  .topbar .brand span{background:linear-gradient(90deg,var(--ig1),var(--ig2),var(--ig3)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+  .hero{padding:70px 0 40px; text-align:center;}
+  .hero .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--bg2); border:1px solid #2a2a33; border-radius:20px;
+    padding:6px 16px; font-size:13px; color:var(--text-dim); margin-bottom:26px;
+  }
+  .hero .eyebrow .dot{width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green);}
+  .hero h1{
+    font-family:'Fraunces'; font-weight:700; font-size:clamp(34px,6vw,58px);
+    line-height:1.08; margin-bottom:20px;
+  }
+  .hero h1 .grad{background:linear-gradient(90deg,var(--ig1),var(--ig2),var(--ig3)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p.sub{max-width:540px; margin:0 auto 34px; color:var(--text-dim); font-size:19px;}
+
+  .cta-primary{
+    display:inline-block;
+    background:var(--bubble-me); color:#fff;
+    font-weight:600; font-size:16px;
+    padding:15px 32px; border-radius:30px; text-decoration:none;
+    transition:0.2s;
+  }
+  .cta-primary:hover{background:#2f68e0; transform:translateY(-2px);}
+  .cta-note{font-size:13px; color:var(--text-dim); margin-top:14px;}
+
+  section{padding:60px 0;}
+  .section-title{font-family:'Fraunces'; font-weight:700; font-size:clamp(26px,4vw,36px); text-align:center; margin-bottom:8px;}
+  .section-sub{text-align:center; color:var(--text-dim); margin-bottom:44px; max-width:520px; margin-left:auto; margin-right:auto;}
+
+  /* PHONE MOCK */
+  .phone{
+    width:320px; background:#000; border-radius:34px; padding:10px;
+    margin:0 auto; box-shadow:0 30px 60px rgba(0,0,0,0.5);
+    border:1px solid #2a2a33;
+  }
+  .phone .screen{
+    background:var(--bg2); border-radius:24px; overflow:hidden;
+    min-height:420px; display:flex; flex-direction:column;
+  }
+  .phone .chat-header{
+    display:flex; align-items:center; gap:10px; padding:14px 16px;
+    border-bottom:1px solid #232329;
+  }
+  .phone .avatar{
+    width:34px; height:34px; border-radius:50%;
+    background:linear-gradient(135deg,var(--ig1),var(--ig2),var(--ig3));
+    display:flex; align-items:center; justify-content:center; font-size:16px;
+  }
+  .phone .chat-name{font-weight:600; font-size:14px;}
+  .phone .chat-status{font-size:11px; color:var(--green);}
+  .chat-body{padding:16px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .bubble{
+    max-width:78%; padding:10px 14px; border-radius:16px; font-size:14px; line-height:1.4;
+  }
+  .bubble.them{background:var(--bubble-them); align-self:flex-start; border-bottom-left-radius:4px;}
+  .bubble.me{background:var(--bubble-me); align-self:flex-end; border-bottom-right-radius:4px; color:#fff;}
+  .bubble.img-share{
+    background:var(--bubble-them); align-self:flex-start; border-bottom-left-radius:4px;
+    padding:0; overflow:hidden; width:70%;
+  }
+  .bubble.img-share .cap{
+    background:linear-gradient(135deg,#1a1a22,#26262f);
+    height:120px; display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces'; font-weight:700; color:var(--gold); font-size:13px; text-align:center; padding:10px;
+  }
+  .bubble.img-share .meta{padding:8px 12px; font-size:12px; color:var(--text-dim);}
+
+  /* two phones side by side */
+  .phones-row{display:flex; gap:40px; justify-content:center; flex-wrap:wrap;}
+
+  /* IG comments style */
+  .comments-card{
+    background:var(--bg2); border:1px solid #232329; border-radius:16px;
+    padding:24px; max-width:520px; margin:0 auto;
+  }
+  .comments-card .post-header{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .comment{display:flex; gap:10px; margin-bottom:16px;}
+  .comment .avatar-sm{
+    width:30px; height:30px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg,var(--ig1),var(--ig2),var(--ig3));
+  }
+  .comment .body{font-size:14px;}
+  .comment .user{font-weight:600; margin-right:6px;}
+  .comment .time{color:var(--text-dim); font-size:11px; margin-top:2px;}
+  .comment .likes{color:var(--text-dim); font-size:11px; margin-left:12px;}
+
+  /* offer as checkout screens */
+  .offer-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:10px;}
+  .offer-card{
+    background:var(--bg2); border:1px solid #232329; border-radius:18px;
+    padding:26px 22px; text-align:center; position:relative;
+  }
+  .offer-card.featured{
+    border:2px solid var(--gold);
+  }
+  .offer-card .tag{
+    position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+    background:var(--gold); color:#1a1400; font-size:11px; font-weight:700;
+    padding:4px 14px; border-radius:20px;
+  }
+  .offer-card h3{font-family:'Fraunces'; font-size:24px; margin-bottom:8px;}
+  .offer-card p.desc{font-size:14px; color:var(--text-dim); margin-bottom:20px; min-height:60px;}
+  .offer-card .price .old{text-decoration:line-through; color:var(--text-dim); font-size:13px; display:block;}
+  .offer-card .price .now{font-size:28px; font-weight:800; margin-bottom:18px; display:block;}
+  .offer-btn{
+    display:block; background:var(--bubble-me); color:#fff; text-decoration:none;
+    padding:12px; border-radius:24px; font-weight:600; font-size:14px;
+  }
+  .offer-card.featured .offer-btn{background:var(--gold); color:#1a1400;}
+
+  .final{text-align:center; padding:90px 0;}
+  .final h2{font-family:'Fraunces'; font-weight:700; font-size:clamp(28px,5vw,44px); margin-bottom:16px;}
+  .final p{color:var(--text-dim); max-width:480px; margin:0 auto 30px;}
+
+  footer{text-align:center; padding:26px 0; font-size:12px; color:var(--text-dim); border-top:1px solid #232329;}
+
+  @media(max-width:760px){
+    .offer-grid{grid-template-columns:1fr;}
+    .phones-row{gap:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Manual do <span>Humano</span></div>
+    <div style="font-size:12px; color:var(--text-dim);">@corona.gato</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> mais de 200 mil pessoas seguem o Corona</div>
+    <h1>Todo mundo tá te mandando <span class="grad">esse gato</span>.</h1>
+    <p class="sub">O ebook que virou print de grupo de WhatsApp, story compartilhado e comentário de "MEU GATO É EXATAMENTE ASSIM".</p>
+    <a href="#oferta" class="cta-primary">Quero ler também</a>
+    <div class="cta-note">a partir de R$ 19,90 · acesso na hora</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title">A conversa que começou tudo</div>
+    <div class="section-sub">Print real (recriado) de uma conversa entre duas donas de gato.</div>
+
+    <div class="phone">
+      <div class="screen">
+        <div class="chat-header">
+          <div class="avatar">🐱</div>
+          <div>
+            <div class="chat-name">Bia</div>
+            <div class="chat-status">online agora</div>
+          </div>
+        </div>
+        <div class="chat-body">
+          <div class="bubble them">gente vc viu esse manual do gato que tá bombando??</div>
+          <div class="bubble me">kkkkkk vi nos stories, é sobre o que mesmo</div>
+          <div class="bubble them">é literalmente meu gato explicando pq ele domina minha casa 😭</div>
+          <div class="bubble img-share">
+            <div class="cap">MANUAL DO<br>HUMANO</div>
+            <div class="meta">manual-do-humano.produto · 15 capítulos</div>
+          </div>
+          <div class="bubble me">PARA vou comprar agora</div>
+          <div class="bubble them">tem versão em quadrinhos tb, comprei o pacote completo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2); border-top:1px solid #232329; border-bottom:1px solid #232329;">
+  <div class="wrap">
+    <div class="section-title">O post que lotou os comentários</div>
+    <div class="section-sub">Recorte dos comentários mais curtidos.</div>
+
+    <div class="comments-card">
+      <div class="post-header">
+        <div class="avatar-sm"></div>
+        <div>
+          <div style="font-weight:600; font-size:14px;">corona.gato <span style="color:var(--text-dim); font-weight:400;">· publicou o Manual do Humano</span></div>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="avatar-sm"></div>
+        <div class="body">
+          <div><span class="user">marina.oliveira</span>eu lendo isso e reconhecendo CADA comportamento do meu gato 😂😂</div>
+          <div class="time">2 dias · <span class="likes">❤️ 341</span></div>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="avatar-sm"></div>
+        <div class="body">
+          <div><span class="user">joao_petshop</span>capítulo do sofá é a explicação mais precisa que já li sobre gato kkkkkk</div>
+          <div class="time">1 dia · <span class="likes">❤️ 198</span></div>
+        </div>
+      </div>
+      <div class="comment">
+        <div class="avatar-sm"></div>
+        <div class="body">
+          <div><span class="user">carla_gatuna</span>comprei o bundle e li em uma tarde só, muito bom</div>
+          <div class="time">6h · <span class="likes">❤️ 87</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title">15 capítulos. Uma verdade só.</div>
+    <div class="section-sub">Escolhendo o humano certo, o sofá conquistado em três fases, o protocolo secreto de aprovação de namoradas, a vigilância noturna às 3h — tudo narrado pelo Corona.</div>
+
+    <div class="phones-row">
+      <div class="phone" style="transform:rotate(-3deg);">
+        <div class="screen" style="min-height:340px;">
+          <div class="chat-header">
+            <div class="avatar">📖</div>
+            <div>
+              <div class="chat-name">Manual do Humano</div>
+              <div class="chat-status" style="color:var(--gold);">Capítulo 3</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="bubble them">"O sofá foi meu primeiro projeto territorial nesta casa."</div>
+            <div class="bubble them">"Território não é o que você ocupa. É o que os outros aceitam que é seu."</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone" style="transform:rotate(3deg);">
+        <div class="screen" style="min-height:340px;">
+          <div class="chat-header">
+            <div class="avatar">🌙</div>
+            <div>
+              <div class="chat-name">Manual do Humano</div>
+              <div class="chat-status" style="color:var(--gold);">Capítulo 8</div>
+            </div>
+          </div>
+          <div class="chat-body">
+            <div class="bubble them">"Às 22h o humano apaga a luz. Às 22h08 meu turno começa."</div>
+            <div class="bubble them">"A casa está segura. Você dormiu bem. Me agradeça de manhã com atum."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta">
+  <div class="wrap">
+    <div class="section-title">Escolhe teu formato e manda ver</div>
+    <div class="section-sub">Compra 100% digital, liberada na hora pela Kiwify.</div>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-ebook.jpg" alt="Capa do Ebook Manual do Humano" style="width:100%; border-radius:10px; margin-bottom:16px;">
+        <h3>Ebook</h3>
+        <p class="desc">Os 15 capítulos em PDF, prontos pra ler no celular.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/TDX60JP" target="_blank" rel="noopener">Comprar ebook</a>
+      </div>
+      <div class="offer-card featured">
+        <div class="tag">MAIS COMPRADO</div>
+        <img src="https://gatocorona.com.br/bundle-stack.jpg" alt="Bundle Manual do Humano completo" style="width:100%; border-radius:10px; margin-bottom:16px; margin-top:8px;">
+        <h3>Bundle</h3>
+        <p class="desc">Ebook + quadrinhos juntos, com desconto.</p>
+        <div class="price"><span class="old">de R$ 39,80</span><span class="now">R$ 25,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener">Comprar bundle</a>
+      </div>
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-quadrinhos.jpg" alt="Capa dos Quadrinhos Manual do Humano" style="width:100%; border-radius:10px; margin-bottom:16px;">
+        <h3>Quadrinhos</h3>
+        <p class="desc">A mesma história, em tirinhas ilustradas.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/P980LQ8" target="_blank" rel="noopener">Comprar quadrinhos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Sua vez de mandar o print pro grupo.</h2>
+    <p>Depois de ler, você não vai olhar pro seu gato do mesmo jeito.</p>
+    <a href="#oferta" class="cta-primary">Acessar o Manual do Humano</a>
+  </div>
+</section>
+
+<footer>MANUAL DO HUMANO © CORONA — TODOS OS SOFÁS RESERVADOS.</footer>
+
+</body>
+</html>

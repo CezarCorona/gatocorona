@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Humano — Dossiê Confidencial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1220;
+    --navy2:#111a2e;
+    --gold:#c9a227;
+    --gold-dim:#8a7020;
+    --cream:#ede6d3;
+    --cream-dim:#b8b09a;
+    --red:#8f2c22;
+    --red-bright:#b23a2e;
+    --line: rgba(201,162,39,0.25);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--cream);
+    font-family:'EB Garamond', serif;
+    font-size:19px;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em;}
+  h1,h2,h3{font-family:'Cormorant SC', serif; font-weight:700; letter-spacing:0.02em;}
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--gold); color:var(--navy);}
+
+  /* texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:1;
+  }
+
+  /* ---- top bar ---- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,18,32,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
+  }
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .topbar .brand{font-family:'Cormorant SC'; font-weight:700; font-size:20px; color:var(--gold);}
+  .topbar .file-id{font-size:11px; color:var(--cream-dim); font-family:'IBM Plex Mono';}
+
+  /* ---- hero ---- */
+  .hero{
+    position:relative;
+    padding:90px 0 70px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .stamp{
+    display:inline-block;
+    border:3px solid var(--red-bright);
+    color:var(--red-bright);
+    font-family:'IBM Plex Mono';
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.25em;
+    padding:8px 18px;
+    transform:rotate(-3deg);
+    margin-bottom:28px;
+    animation: stampIn 0.6s cubic-bezier(.2,1.4,.4,1) 0.2s both;
+  }
+  @keyframes stampIn{
+    0%{opacity:0; transform:rotate(-3deg) scale(2.2);}
+    60%{opacity:1;}
+    100%{opacity:1; transform:rotate(-3deg) scale(1);}
+  }
+  .hero h1{
+    font-size:clamp(40px,7vw,72px);
+    color:var(--cream);
+    line-height:1.05;
+    margin-bottom:20px;
+  }
+  .hero h1 span{color:var(--gold);}
+  .hero p.sub{
+    max-width:600px; margin:0 auto 36px;
+    font-size:21px; color:var(--cream-dim); font-style:italic;
+  }
+  .redact{
+    background:#000; color:transparent; border-radius:2px;
+    padding:0 4px; cursor:default; transition:0.25s;
+    user-select:none;
+  }
+  .redact:hover{color:var(--cream); background:transparent; outline:1px dashed var(--gold);}
+
+  .cta-primary{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy);
+    font-family:'IBM Plex Mono';
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.08em;
+    text-decoration:none;
+    padding:16px 34px;
+    border-radius:2px;
+    transition:0.2s;
+    text-transform:uppercase;
+  }
+  .cta-primary:hover{background:#e0bc3d; transform:translateY(-2px);}
+  .cta-sub{font-size:13px; color:var(--cream-dim); margin-top:12px; font-family:'IBM Plex Mono';}
+
+  /* ---- section labels ---- */
+  .eyebrow{
+    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.25em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:14px;
+  }
+  section{padding:80px 0; border-bottom:1px solid var(--line); position:relative; z-index:2;}
+  section h2{font-size:clamp(28px,4vw,42px); margin-bottom:18px;}
+
+  /* ---- excerpt ---- */
+  .excerpt-card{
+    background:var(--navy2);
+    border:1px solid var(--line);
+    border-left:4px solid var(--red-bright);
+    padding:34px 36px;
+    margin-top:34px;
+    position:relative;
+  }
+  .excerpt-card .tag{
+    position:absolute; top:-13px; right:20px;
+    background:var(--red-bright); color:var(--cream);
+    font-family:'IBM Plex Mono'; font-size:10px; letter-spacing:0.15em;
+    padding:4px 10px;
+  }
+  .excerpt-card p{font-style:italic; font-size:20px; margin-bottom:14px;}
+  .excerpt-card .who{font-family:'IBM Plex Mono'; font-size:13px; color:var(--gold);}
+
+  /* ---- proof grid ---- */
+  .proof-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px;}
+  .proof-item{
+    background:var(--navy2); border:1px solid var(--line); padding:22px 20px;
+  }
+  .proof-item .stars{color:var(--gold); letter-spacing:2px; margin-bottom:10px;}
+  .proof-item p{font-size:16px; font-style:italic; margin-bottom:10px;}
+  .proof-item .src{font-family:'IBM Plex Mono'; font-size:11px; color:var(--cream-dim);}
+
+  /* ---- offer ---- */
+  .offer-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:44px; align-items:stretch;}
+  .offer-card{
+    background:var(--navy2); border:1px solid var(--line);
+    padding:30px 26px; display:flex; flex-direction:column;
+    position:relative;
+  }
+  .offer-card.featured{
+    border:2px solid var(--gold);
+    background:linear-gradient(180deg, rgba(201,162,39,0.08), var(--navy2) 40%);
+  }
+  .offer-card .badge{
+    position:absolute; top:-13px; left:26px;
+    background:var(--gold); color:var(--navy);
+    font-family:'IBM Plex Mono'; font-weight:600; font-size:11px; letter-spacing:0.12em;
+    padding:4px 12px;
+  }
+  .offer-card h3{font-size:26px; margin-bottom:6px;}
+  .offer-card .desc{font-size:15px; color:var(--cream-dim); margin-bottom:20px; flex:1;}
+  .offer-card .price{font-family:'IBM Plex Mono'; margin-bottom:20px;}
+  .offer-card .price .old{color:var(--cream-dim); text-decoration:line-through; font-size:14px; display:block;}
+  .offer-card .price .now{font-size:32px; color:var(--gold); font-weight:600;}
+  .offer-btn{
+    display:block; text-align:center; text-decoration:none;
+    padding:13px; font-family:'IBM Plex Mono'; font-size:13px; letter-spacing:0.08em;
+    border:1px solid var(--gold); color:var(--gold); text-transform:uppercase;
+    transition:0.2s;
+  }
+  .offer-btn:hover{background:var(--gold); color:var(--navy);}
+  .offer-card.featured .offer-btn{background:var(--gold); color:var(--navy);}
+  .offer-card.featured .offer-btn:hover{background:#e0bc3d;}
+
+  /* ---- faq ---- */
+  .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
+  .faq-item summary{
+    cursor:pointer; font-family:'Cormorant SC'; font-weight:700; font-size:20px;
+    list-style:none; display:flex; justify-content:space-between; align-items:center;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+"; color:var(--gold); font-size:24px;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{margin-top:12px; color:var(--cream-dim); font-size:17px;}
+
+  /* ---- final cta ---- */
+  .final{
+    text-align:center; padding:100px 0 90px; border-bottom:none;
+  }
+  .final .stamp{margin-bottom:24px;}
+  .final h2{font-size:clamp(30px,5vw,50px); margin-bottom:18px;}
+  .final p{color:var(--cream-dim); max-width:520px; margin:0 auto 34px; font-size:19px;}
+
+  footer{text-align:center; padding:30px 0; font-family:'IBM Plex Mono'; font-size:11px; color:var(--cream-dim);}
+
+  @media(max-width:760px){
+    .proof-grid, .offer-grid{grid-template-columns:1fr;}
+    body{font-size:17px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Manual do Humano</div>
+    <div class="file-id">DOC Nº 07H48 · CORONA</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="stamp mono">CLASSIFICADO · ACESSO RESTRITO</div>
+    <h1>O documento que seu gato<br><span>nunca quis que você lesse.</span></h1>
+    <p class="sub">15 capítulos escritos por Corona, revelando exatamente como ele conquistou o sofá, aprovou (ou não) suas namoradas, e treinou você sem que você percebesse.</p>
+    <a href="#oferta" class="cta-primary">Acessar o dossiê completo</a>
+    <div class="cta-sub">a partir de R$ 19,90 · acesso imediato</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Trecho vazado · Capítulo 6</div>
+    <h2>Ele sabe muito mais<br>do que você imagina.</h2>
+    <p style="color:var(--cream-dim); max-width:600px;">Corona documentou, capítulo por capítulo, cada estratégia que ele já aplicou em você — do sofá à academia, das visitas não autorizadas ao rolo adesivo que ele considera uma declaração de guerra.</p>
+
+    <div class="excerpt-card">
+      <div class="tag mono">TOP SECRET</div>
+      <p>"O que acontece na janela das 7h48 fica na janela das 7h48. O humano que vazar essa informação vai entender o que é consequência."</p>
+      <div class="who">— Corona, Capítulo 6: Segredo de Estado</div>
+    </div>
+
+    <div class="excerpt-card">
+      <div class="tag mono">TOP SECRET</div>
+      <p>Eis o <span class="redact">passe-a-passe exato das três fases</span> que ele usou pra tomar o sofá inteiro — e o motivo de você ter achado que a ideia foi sua.</p>
+      <div class="who">— Corona, Capítulo 3: O Sofá é Meu · <span style="color:var(--gold-dim);">(passe o mouse pra revelar)</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Depoimentos coletados</div>
+    <h2>Humanos que já leram o dossiê.</h2>
+    <div class="proof-grid">
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <p>"Mudou minha vida. Entendi tudo."</p>
+        <div class="src">— Um humano confuso</div>
+      </div>
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <p>"Finalmente alguém explicou o rolo adesivo."</p>
+        <div class="src">— Leitor anônimo</div>
+      </div>
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <p>"Li três vezes. Ainda fico no chão."</p>
+        <div class="src">— Dono de sofá ocupado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta">
+  <div class="wrap">
+    <div class="eyebrow">Níveis de acesso</div>
+    <h2>Escolha seu nível de autorização.</h2>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-ebook.jpg" alt="Capa do Ebook Manual do Humano" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+        <h3>Ebook</h3>
+        <p class="desc">Os 15 capítulos completos do Manual do Humano, narrados por Corona. PDF de leitura imediata.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/TDX60JP" target="_blank" rel="noopener">Quero o ebook</a>
+      </div>
+      <div class="offer-card featured">
+        <div class="badge">MAIS ESCOLHIDO</div>
+        <img src="https://gatocorona.com.br/bundle-stack.jpg" alt="Bundle Manual do Humano completo" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+        <h3>Bundle Completo</h3>
+        <p class="desc">Ebook + versão em quadrinhos. As mesmas 15 lições, em dois formatos — leia ou veja em quadros.</p>
+        <div class="price"><span class="old">de R$ 39,80</span><span class="now">R$ 25,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener">Quero acesso total</a>
+      </div>
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-quadrinhos.jpg" alt="Capa dos Quadrinhos Manual do Humano" style="width:100%; border:1px solid var(--line); margin-bottom:18px;">
+        <h3>Quadrinhos</h3>
+        <p class="desc">A mesma história do Corona, em tirinhas ilustradas. Formato rápido, visual, direto.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/P980LQ8" target="_blank" rel="noopener">Quero os quadrinhos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Interrogatório</div>
+    <h2>Perguntas frequentes.</h2>
+
+    <details class="faq-item" open>
+      <summary>Como recebo o material?</summary>
+      <p>Assim que o pagamento é aprovado na Kiwify, você recebe acesso imediato por e-mail e pode ler direto do navegador ou baixar o arquivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Funciona no celular?</summary>
+      <p>Sim. O ebook e os quadrinhos são otimizados para leitura em celular, tablet ou computador.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Qual a diferença entre ebook e quadrinhos?</summary>
+      <p>O conteúdo narrativo é o mesmo — as mesmas 15 lições do Corona. O ebook é em formato de texto com ilustrações; os quadrinhos contam a mesma história em tirinhas. O bundle traz os dois.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Tem garantia?</summary>
+      <p>Sim, a compra é processada pela Kiwify, com garantia conforme os termos da plataforma.</p>
+    </details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="stamp mono">FIM DO ACESSO PÚBLICO</div>
+    <h2>O resto do dossiê está com você.</h2>
+    <p>Corona já disse o suficiente. Agora é sua vez de entender o que estava acontecendo na sua própria casa.</p>
+    <a href="#oferta" class="cta-primary">Ver os 3 formatos disponíveis</a>
+  </div>
+</section>
+
+<footer>MANUAL DO HUMANO © CORONA — TODOS OS SOFÁS RESERVADOS.</footer>
+
+</body>
+</html>

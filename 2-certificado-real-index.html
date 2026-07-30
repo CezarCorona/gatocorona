@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Humano — Certificado Oficial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#f3ecd8;
+    --parchment-deep:#ece1c4;
+    --navy:#1b2a4a;
+    --navy-deep:#101a30;
+    --gold:#b8892b;
+    --gold-light:#d9b45c;
+    --seal:#7a1f1f;
+    --ink:#2a2416;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'EB Garamond', serif;
+    font-size:19px;
+    line-height:1.65;
+  }
+  body{
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(184,137,43,0.06), transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(27,42,74,0.05), transparent 40%);
+  }
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:600; color:var(--navy);}
+  .caps{font-family:'Cinzel', serif; text-transform:uppercase;}
+  .wrap{max-width:940px; margin:0 auto; padding:0 28px;}
+  a{color:inherit;}
+
+  .topbar{
+    padding:16px 0; border-bottom:2px solid var(--navy);
+  }
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center;}
+  .topbar .brand{font-family:'Cinzel'; font-weight:600; font-size:18px; color:var(--navy); letter-spacing:0.08em;}
+  .topbar .brand span{color:var(--gold);}
+
+  /* HERO — diploma frame */
+  .hero{padding:64px 0 50px; text-align:center;}
+  .diploma{
+    border:3px solid var(--navy);
+    padding:56px 40px;
+    position:relative;
+    background:var(--parchment-deep);
+  }
+  .diploma::before{
+    content:"";
+    position:absolute; inset:10px;
+    border:1px solid var(--gold);
+    pointer-events:none;
+  }
+  .diploma .eyebrow{
+    font-family:'Cinzel'; font-size:12px; letter-spacing:0.3em; color:var(--gold);
+    margin-bottom:18px;
+  }
+  .diploma h1{
+    font-size:clamp(34px,6vw,58px); line-height:1.1; margin-bottom:22px;
+  }
+  .diploma h1 em{font-style:italic; color:var(--gold);}
+  .diploma p.sub{
+    max-width:560px; margin:0 auto 30px; font-size:20px; font-style:italic; color:#4a4331;
+  }
+  .seal{
+    width:110px; height:110px; border-radius:50%;
+    border:3px double var(--seal);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 30px;
+    color:var(--seal); font-family:'Cinzel'; font-size:11px; letter-spacing:0.08em;
+    text-align:center; line-height:1.4; padding:10px;
+    transform:rotate(-6deg);
+  }
+
+  .cta-primary{
+    display:inline-block; background:var(--navy); color:var(--parchment);
+    font-family:'Cinzel'; font-size:14px; letter-spacing:0.1em;
+    padding:16px 36px; text-decoration:none; border:1px solid var(--navy);
+    transition:0.2s;
+  }
+  .cta-primary:hover{background:var(--navy-deep);}
+  .cta-note{font-size:14px; color:#5c5440; margin-top:14px; font-style:italic;}
+
+  section{padding:70px 0;}
+  .eyebrow-lab{
+    font-family:'Cinzel'; font-size:12px; letter-spacing:0.25em; color:var(--gold);
+    margin-bottom:14px; text-align:center;
+  }
+  h2.center{text-align:center; font-size:clamp(28px,4vw,40px); margin-bottom:14px;}
+  p.center{text-align:center; max-width:600px; margin:0 auto 40px; color:#4a4331;}
+
+  /* Science grid */
+  .sci-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px;}
+  .sci-card{
+    background:var(--parchment-deep); border:1px solid var(--gold);
+    padding:26px 24px;
+  }
+  .sci-card .num{font-family:'Cinzel'; color:var(--gold); font-size:13px; letter-spacing:0.1em; margin-bottom:8px;}
+  .sci-card h3{font-size:22px; margin-bottom:8px;}
+  .sci-card p{font-size:16px; color:#4a4331;}
+  .sci-card .ref{font-size:12px; color:var(--navy); font-style:italic; margin-top:10px; opacity:0.7;}
+
+  /* certificate of quality mock */
+  .cert-box{
+    border:2px solid var(--navy); background:var(--parchment-deep);
+    padding:44px; text-align:center; margin-top:50px; position:relative;
+  }
+  .cert-box::before, .cert-box::after{
+    content:"❧"; color:var(--gold); font-size:22px; position:absolute; top:16px;
+  }
+  .cert-box::before{left:20px;}
+  .cert-box::after{right:20px;}
+  .cert-box h3{font-family:'Cinzel'; font-size:20px; letter-spacing:0.08em; margin-bottom:16px;}
+  .cert-box p{max-width:560px; margin:0 auto 18px; font-style:italic; color:#4a4331;}
+  .cert-box .signature{font-family:'Cormorant Garamond'; font-style:italic; font-size:26px; color:var(--navy); margin-top:14px;}
+
+  /* offer */
+  .offer-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:44px;}
+  .offer-card{
+    background:var(--parchment-deep); border:1px solid var(--navy);
+    padding:32px 26px; text-align:center; position:relative;
+  }
+  .offer-card.featured{border:2px solid var(--gold); box-shadow:0 0 0 4px rgba(184,137,43,0.08);}
+  .offer-card .ribbon{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:var(--seal); color:var(--parchment); font-family:'Cinzel';
+    font-size:11px; letter-spacing:0.1em; padding:5px 16px;
+  }
+  .offer-card h3{font-size:26px; margin-bottom:8px;}
+  .offer-card p.desc{font-size:15px; color:#4a4331; margin-bottom:20px; min-height:70px;}
+  .offer-card .price{margin-bottom:22px;}
+  .offer-card .price .old{text-decoration:line-through; color:#8a806a; font-size:14px; display:block;}
+  .offer-card .price .now{font-family:'Cinzel'; font-size:30px; color:var(--navy);}
+  .offer-btn{
+    display:block; background:var(--navy); color:var(--parchment); text-decoration:none;
+    padding:13px; font-family:'Cinzel'; font-size:13px; letter-spacing:0.08em;
+    transition:0.2s;
+  }
+  .offer-btn:hover{background:var(--navy-deep);}
+  .offer-card.featured .offer-btn{background:var(--gold);}
+  .offer-card.featured .offer-btn:hover{background:var(--gold-light); color:var(--navy);}
+
+  /* testimonials as certificate stamps */
+  .stamps-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:40px;}
+  .stamp-item{
+    text-align:center; padding:24px 18px; border:1px dashed var(--gold);
+  }
+  .stamp-item .stars{color:var(--gold); margin-bottom:10px; letter-spacing:2px;}
+  .stamp-item p{font-style:italic; font-size:16px; margin-bottom:8px;}
+  .stamp-item .src{font-family:'Cinzel'; font-size:11px; color:var(--navy); letter-spacing:0.05em;}
+
+  .final{text-align:center; border-top:2px solid var(--navy); padding:80px 0 90px;}
+  .final h2{font-size:clamp(28px,5vw,44px); margin-bottom:16px;}
+  .final p{max-width:520px; margin:0 auto 30px; color:#4a4331;}
+
+  footer{text-align:center; padding:26px 0; font-family:'Cinzel'; font-size:11px; letter-spacing:0.08em; color:#8a806a;}
+
+  @media(max-width:760px){
+    .sci-grid,.offer-grid,.stamps-grid{grid-template-columns:1fr;}
+    body{font-size:17px;}
+    .diploma{padding:36px 22px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">MANUAL DO <span>HUMANO</span></div>
+    <div class="caps" style="font-size:11px; color:var(--navy); letter-spacing:0.1em;">Edição Oficial</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="diploma">
+      <div class="eyebrow">Certificado de Leitura Obrigatória</div>
+      <h1>O manual definitivo sobre<br>por que <em>seu gato</em> te domina.</h1>
+      <div class="seal">SELO<br>APROVADO<br>PELA CIÊNCIA</div>
+      <p class="sub">15 capítulos. Cada comportamento do Corona explicado por ele mesmo — e validado, página a página, por estudos reais de etologia felina.</p>
+      <a href="#oferta" class="cta-primary">Solicitar meu exemplar</a>
+      <div class="cta-note">a partir de R$ 19,90 — acesso digital imediato</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow-lab">O que a ciência diz</div>
+    <h2 class="center">Não é só humor. É comportamento documentado.</h2>
+    <p class="center">Cada capítulo do Manual do Humano termina com uma seção de embasamento científico — o que pesquisas de universidades como Sussex, Oregon State e Lincoln já provaram sobre o comportamento que seu gato faz todo dia.</p>
+
+    <div class="sci-grid">
+      <div class="sci-card">
+        <div class="num">ACHADO Nº 1</div>
+        <h3>A escolha é dele, não sua.</h3>
+        <p>Estudos de etologia mostram que gatos avaliam humanos por observação lenta antes de se aproximarem — exatamente o processo que Corona descreve no Capítulo 1.</p>
+      </div>
+      <div class="sci-card">
+        <div class="num">ACHADO Nº 2</div>
+        <h3>Território se conquista em fases.</h3>
+        <p>Pesquisas sobre marcação territorial felina confirmam: a ocupação gradual de um espaço reduz conflito e aumenta estabilidade — a mesma tática do "sofá em três fases".</p>
+      </div>
+      <div class="sci-card">
+        <div class="num">ACHADO Nº 3</div>
+        <h3>O ronronar tem função.</h3>
+        <p>A frequência do ronronar felino está associada à redução de cortisol — em ambos, gato e humano. Não é acaso, é biologia.</p>
+      </div>
+      <div class="sci-card">
+        <div class="num">ACHADO Nº 4</div>
+        <h3>Colo é escolha, não obrigação.</h3>
+        <p>Gatos preferem humanos calmos e estáveis como parceiros de contato — e escolhem quando se aproximar com base em critérios próprios, mensuráveis.</p>
+      </div>
+    </div>
+
+    <div class="cert-box">
+      <h3>CERTIFICADO DE CONTEÚDO VALIDADO</h3>
+      <p>"Este manual foi inspecionado e aprovado. Cada capítulo narrativo é acompanhado de uma página de embasamento científico, com referências reais a estudos de comportamento felino."</p>
+      <div class="signature">Manual do Humano</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--parchment-deep); border-top:1px solid var(--gold); border-bottom:1px solid var(--gold);">
+  <div class="wrap">
+    <div class="eyebrow-lab">Registros de leitores</div>
+    <h2 class="center">Avaliações registradas em cartório emocional.</h2>
+    <div class="stamps-grid">
+      <div class="stamp-item">
+        <div class="stars">★★★★★</div>
+        <p>"Mudou minha vida. Entendi tudo."</p>
+        <div class="src">UM HUMANO CONFUSO</div>
+      </div>
+      <div class="stamp-item">
+        <div class="stars">★★★★★</div>
+        <p>"Finalmente alguém explicou o rolo adesivo."</p>
+        <div class="src">LEITOR ANÔNIMO</div>
+      </div>
+      <div class="stamp-item">
+        <div class="stars">★★★★★</div>
+        <p>"Li três vezes. Ainda fico no chão."</p>
+        <div class="src">DONO DE SOFÁ OCUPADO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta">
+  <div class="wrap">
+    <div class="eyebrow-lab">Formatos disponíveis</div>
+    <h2 class="center">Escolha sua edição.</h2>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-ebook.jpg" alt="Capa do Ebook Manual do Humano" style="width:100%; border:1px solid var(--navy); margin-bottom:18px;">
+        <h3>Ebook</h3>
+        <p class="desc">Os 15 capítulos completos, com narrativa do Corona e as respectivas páginas de embasamento científico.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/TDX60JP" target="_blank" rel="noopener">Solicitar Ebook</a>
+      </div>
+      <div class="offer-card featured">
+        <div class="ribbon">EDIÇÃO COMPLETA</div>
+        <img src="https://gatocorona.com.br/bundle-stack.jpg" alt="Bundle Manual do Humano completo" style="width:100%; border:1px solid var(--navy); margin-bottom:18px;">
+        <h3>Bundle</h3>
+        <p class="desc">Ebook + Quadrinhos. As mesmas 15 lições em texto e em tirinhas ilustradas — o registro completo.</p>
+        <div class="price"><span class="old">de R$ 39,80</span><span class="now">R$ 25,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener">Solicitar Edição Completa</a>
+      </div>
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-quadrinhos.jpg" alt="Capa dos Quadrinhos Manual do Humano" style="width:100%; border:1px solid var(--navy); margin-bottom:18px;">
+        <h3>Quadrinhos</h3>
+        <p class="desc">A mesma jornada do Corona, contada em quadrinhos ilustrados — leitura rápida e visual.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/P980LQ8" target="_blank" rel="noopener">Solicitar Quadrinhos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>O próximo capítulo é seu diploma de humano formado.</h2>
+    <p>Corona já fez a parte dele. O manual está pronto. Falta só você ler.</p>
+    <a href="#oferta" class="cta-primary">Ver os formatos disponíveis</a>
+  </div>
+</section>
+
+<footer>MANUAL DO HUMANO © CORONA — TODOS OS SOFÁS RESERVADOS.</footer>
+
+</body>
+</html>

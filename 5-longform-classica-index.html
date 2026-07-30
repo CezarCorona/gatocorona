@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Humano — Por que seu gato faz isso?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f6;
+    --bg2:#f0eee7;
+    --ink:#14140f;
+    --ink-dim:#57564d;
+    --orange:#ff5a1f;
+    --orange-dim:#e04a15;
+    --line:#dedad0;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:19px; line-height:1.65;
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:700; line-height:1.1;}
+  .wrap{max-width:720px; margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+
+  .topbar{padding:16px 0; border-bottom:1px solid var(--line);}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center; max-width:820px;}
+  .topbar .brand{font-family:'Space Grotesk'; font-weight:700; font-size:17px;}
+  .topbar .brand .dot{color:var(--orange);}
+
+  .hero{padding:60px 0 20px;}
+  .kicker{
+    font-family:'Space Grotesk'; font-size:13px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--orange); margin-bottom:16px; font-weight:600;
+  }
+  .hero h1{font-size:clamp(32px,6vw,50px); margin-bottom:20px;}
+  .hero .lede{font-size:21px; color:var(--ink-dim); margin-bottom:30px;}
+
+  section{padding:40px 0;}
+  .divider{border:none; border-top:1px solid var(--line); margin:0;}
+
+  p{margin-bottom:18px;}
+  p.big{font-size:21px; font-weight:500;}
+  strong{font-weight:700;}
+  em.mark{background:rgba(255,90,31,0.15); font-style:normal; padding:0 3px;}
+
+  blockquote{
+    border-left:3px solid var(--orange); padding:4px 0 4px 22px; margin:26px 0;
+    font-style:italic; color:var(--ink-dim); font-size:20px;
+  }
+  blockquote cite{display:block; font-style:normal; font-size:14px; margin-top:8px; color:var(--ink);}
+
+  .list-check{list-style:none; margin:24px 0;}
+  .list-check li{padding-left:32px; position:relative; margin-bottom:14px;}
+  .list-check li::before{
+    content:"→"; position:absolute; left:0; color:var(--orange); font-weight:700;
+  }
+
+  .cta-primary{
+    display:inline-block; background:var(--orange); color:#fff;
+    font-family:'Space Grotesk'; font-weight:700; font-size:17px;
+    padding:17px 36px; text-decoration:none; border-radius:4px;
+    transition:0.2s;
+  }
+  .cta-primary:hover{background:var(--orange-dim);}
+  .cta-block{text-align:center; padding:20px 0;}
+  .cta-note{font-size:13px; color:var(--ink-dim); margin-top:12px;}
+
+  .callout{
+    background:var(--bg2); border:1px solid var(--line); border-radius:6px;
+    padding:26px 28px; margin:30px 0;
+  }
+  .callout h3{font-size:20px; margin-bottom:10px;}
+
+  .proof-row{display:flex; gap:16px; margin:30px 0; flex-wrap:wrap;}
+  .proof-item{flex:1; min-width:180px; background:var(--bg2); border-radius:6px; padding:18px;}
+  .proof-item .stars{color:var(--orange); margin-bottom:8px;}
+  .proof-item p{font-size:15px; margin-bottom:6px;}
+  .proof-item .src{font-size:12px; color:var(--ink-dim);}
+
+  /* offer table */
+  .offer-table{border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:30px 0;}
+  .offer-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 26px; border-bottom:1px solid var(--line); gap:16px; flex-wrap:wrap;
+  }
+  .offer-row:last-child{border-bottom:none;}
+  .offer-row.featured{background:#1a1810; color:#fff;}
+  .offer-row .info h4{font-family:'Space Grotesk'; font-size:19px; margin-bottom:4px;}
+  .offer-row .info p{font-size:14px; color:var(--ink-dim); margin:0;}
+  .offer-row.featured .info p{color:#c9c5b8;}
+  .offer-row .action{text-align:right; flex-shrink:0;}
+  .offer-row .price-old{text-decoration:line-through; font-size:13px; color:var(--ink-dim); display:block;}
+  .offer-row.featured .price-old{color:#8f8b7a;}
+  .offer-row .price-now{font-family:'Space Grotesk'; font-weight:700; font-size:24px; margin-bottom:8px; display:block;}
+  .offer-row .buy-btn{
+    display:inline-block; background:var(--orange); color:#fff; text-decoration:none;
+    padding:10px 20px; border-radius:4px; font-size:14px; font-weight:600;
+  }
+  .offer-row .tag{
+    display:inline-block; background:var(--orange); color:#fff; font-size:11px; font-weight:700;
+    padding:3px 10px; border-radius:20px; margin-bottom:8px; letter-spacing:0.03em;
+  }
+
+  .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
+  .faq-item summary{
+    cursor:pointer; font-family:'Space Grotesk'; font-weight:600; font-size:18px;
+    list-style:none; display:flex; justify-content:space-between;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+"; color:var(--orange); font-size:22px;}
+  .faq-item[open] summary::after{content:"–";}
+  .faq-item p{margin-top:12px; color:var(--ink-dim); font-size:16px;}
+
+  .final{text-align:center; padding:70px 0;}
+  .final h2{font-size:clamp(28px,5vw,40px); margin-bottom:16px;}
+
+  footer{text-align:center; padding:26px 0; font-size:12px; color:var(--ink-dim); border-top:1px solid var(--line);}
+
+  @media(max-width:600px){
+    .offer-row{flex-direction:column; align-items:flex-start;}
+    .offer-row .action{text-align:left; width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Manual do Humano<span class="dot">.</span></div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">Leitura de 6 minutos</div>
+    <h1>Seu gato não é indiferente com você. Ele tem um plano.</h1>
+    <p class="lede">E depois de ler as próximas linhas, você vai reconhecer cada comportamento que ele já testou em você — do sofá à academia, da comida às 3h da manhã.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section>
+  <div class="wrap">
+    <p class="big">Você já deve ter se perguntado por que seu gato faz exatamente aquilo.</p>
+    <p>Por que ele espera você sair de casa pra arranhar o sofá específico que você acabou de limpar. Por que ele decide, do nada, que às 3h da manhã é hora de miar. Por que ele te ignora por 40 minutos e depois sobe no colo como se nada tivesse acontecido.</p>
+    <p>A resposta que a maioria das pessoas dá é: <em class="mark">"gato é assim mesmo, imprevisível"</em>.</p>
+    <p>Só que não é bem assim. E é exatamente isso que o <strong>Manual do Humano</strong> — escrito (segundo ele mesmo) pelo gato Corona — explica, capítulo por capítulo, com humor e embasamento científico real.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="callout">
+      <h3>O que é o Manual do Humano</h3>
+      <p>Um guia de 15 capítulos narrado da perspectiva de um gato, explicando — com uma seriedade cômica — a lógica por trás de cada comportamento felino: territorialidade, vigilância noturna, aprovação de visitas, o "protocolo" do colo, e muito mais.</p>
+      <p style="margin-bottom:0;">Cada capítulo narrativo vem acompanhado de uma página de <strong>embasamento científico real</strong>, com referências a estudos de etologia e comportamento animal.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 style="font-size:26px; margin-bottom:16px;">Um trecho, pra você sentir o tom:</h2>
+    <blockquote>
+      "O sofá foi meu primeiro projeto territorial nesta casa. Território não se conquista com força, barulho ou confronto direto. Conquista-se com presença. Com paciência."
+      <cite>— Corona, Capítulo 3: O Sofá é Meu</cite>
+    </blockquote>
+    <blockquote>
+      "Colo não é um direito automático. É uma concessão. Uma recompensa. Um reconhecimento formal de conduta exemplar."
+      <cite>— Corona, Capítulo 9: O Colo Perfeito</cite>
+    </blockquote>
+    <p>Depois de cada capítulo desses, vem a explicação científica real por trás do comportamento — por que gatos preferem humanos calmos, por que a marcação territorial existe, por que o ronronar reduz o cortisol de quem está por perto.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 style="font-size:26px; margin-bottom:16px;">O que você vai encontrar nos 15 capítulos:</h2>
+    <ul class="list-check">
+      <li>Como o sofá foi conquistado em três fases — sem disparar um único miado</li>
+      <li>O protocolo oficial de aprovação de namoradas (com 4 etapas)</li>
+      <li>Por que a academia só funciona com autorização prévia às 6h da manhã</li>
+      <li>O dicionário oficial dos miados — o que cada som realmente significa</li>
+      <li>A vigilância noturna: o que acontece na casa às 3h enquanto você dorme</li>
+      <li>O protocolo de responsabilização depois da visita ao veterinário</li>
+    </ul>
+
+    <div class="proof-row">
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <p>"Mudou minha vida. Entendi tudo."</p>
+        <div class="src">Um humano confuso</div>
+      </div>
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <p>"Finalmente alguém explicou o rolo adesivo."</p>
+        <div class="src">Leitor anônimo</div>
+      </div>
+      <div class="proof-item">
+        <div class="stars">★★★★★</div>
+        <p>"Li três vezes. Ainda fico no chão."</p>
+        <div class="src">Dono de sofá ocupado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta">
+  <div class="wrap">
+    <h2 style="font-size:28px; margin-bottom:10px;">Escolha como quer ler</h2>
+    <p style="color:var(--ink-dim); margin-bottom:6px;">Os três formatos trazem as mesmas 15 lições do Corona — a diferença está em como você prefere consumir.</p>
+
+    <div class="offer-table">
+      <div class="offer-row">
+        <div class="info" style="display:flex; gap:16px; align-items:center;">
+          <img src="https://gatocorona.com.br/capa-ebook.jpg" alt="Capa do Ebook" style="width:52px; height:auto; border-radius:4px; flex-shrink:0;">
+          <div>
+            <h4>Ebook</h4>
+            <p>15 capítulos completos, texto + ilustrações + páginas científicas</p>
+          </div>
+        </div>
+        <div class="action">
+          <span class="price-now">R$ 19,90</span>
+          <a class="buy-btn" href="https://pay.kiwify.com.br/TDX60JP" target="_blank" rel="noopener">Comprar</a>
+        </div>
+      </div>
+      <div class="offer-row featured">
+        <div class="info" style="display:flex; gap:16px; align-items:center;">
+          <img src="https://gatocorona.com.br/bundle-stack.jpg" alt="Bundle completo" style="width:52px; height:auto; border-radius:4px; flex-shrink:0;">
+          <div>
+            <span class="tag">MAIS ESCOLHIDO</span>
+            <h4>Bundle: Ebook + Quadrinhos</h4>
+            <p>As mesmas 15 lições, em texto e em tirinhas — os dois formatos, com desconto</p>
+          </div>
+        </div>
+        <div class="action">
+          <span class="price-old">de R$ 39,80</span>
+          <span class="price-now">R$ 25,90</span>
+          <a class="buy-btn" href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener">Comprar</a>
+        </div>
+      </div>
+      <div class="offer-row">
+        <div class="info" style="display:flex; gap:16px; align-items:center;">
+          <img src="https://gatocorona.com.br/capa-quadrinhos.jpg" alt="Capa dos Quadrinhos" style="width:52px; height:auto; border-radius:4px; flex-shrink:0;">
+          <div>
+            <h4>Quadrinhos</h4>
+            <p>A mesma história em tirinhas ilustradas, leitura rápida e visual</p>
+          </div>
+        </div>
+        <div class="action">
+          <span class="price-now">R$ 19,90</span>
+          <a class="buy-btn" href="https://pay.kiwify.com.br/P980LQ8" target="_blank" rel="noopener">Comprar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-block">
+      <a href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener" class="cta-primary">Quero o bundle completo</a>
+      <div class="cta-note">Pagamento processado pela Kiwify · acesso liberado imediatamente</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 style="font-size:26px; margin-bottom:16px;">Perguntas frequentes</h2>
+    <details class="faq-item" open>
+      <summary>Como recebo o material depois de comprar?</summary>
+      <p>Assim que o pagamento é aprovado na Kiwify, você recebe o acesso por e-mail e pode ler direto do navegador ou baixar o arquivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Funciona no celular?</summary>
+      <p>Sim, tanto o ebook quanto os quadrinhos são otimizados para leitura em celular, tablet ou computador.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Qual a diferença entre os formatos?</summary>
+      <p>O conteúdo é o mesmo em essência — as 15 lições do Corona. O ebook traz texto com ilustrações e páginas de embasamento científico; os quadrinhos contam a mesma jornada em tirinhas. O bundle inclui os dois.</p>
+    </details>
+    <details class="faq-item">
+      <summary>É só pra quem tem gato?</summary>
+      <p>Não precisa ter gato pra rir e reconhecer os comportamentos — mas quem tem, reconhece linha por linha.</p>
+    </details>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Da próxima vez que seu gato fizer "aquilo", você vai saber exatamente por quê.</h2>
+    <a href="#oferta" class="cta-primary">Ver os formatos disponíveis</a>
+  </div>
+</section>
+
+<footer>MANUAL DO HUMANO © CORONA — TODOS OS SOFÁS RESERVADOS.</footer>
+
+</body>
+</html>

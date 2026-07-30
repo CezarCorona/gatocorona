@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual do Humano — A Série em Quadrinhos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf3e2;
+    --ink:#111111;
+    --red:#e6392c;
+    --blue:#1f5aa8;
+    --yellow:#ffc93c;
+    --green:#2f9e5b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Patrick Hand', sans-serif;
+    font-size:19px;
+    line-height:1.5;
+  }
+  body{
+    background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1.2px);
+    background-size:10px 10px;
+  }
+  .comic{font-family:'Bangers'; letter-spacing:0.03em;}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 24px;}
+  a{color:inherit;}
+
+  .topbar{padding:16px 0; border-bottom:4px solid var(--ink);}
+  .topbar .wrap{display:flex; justify-content:space-between; align-items:center;}
+  .topbar .brand{font-family:'Bangers'; font-size:26px; letter-spacing:0.03em; color:var(--red); -webkit-text-stroke:1px var(--ink);}
+
+  /* HERO */
+  .hero{padding:60px 0 40px; text-align:center;}
+  .hero .burst{
+    display:inline-block; background:var(--yellow); border:4px solid var(--ink);
+    padding:6px 20px; transform:rotate(-4deg); font-family:'Bangers'; font-size:16px;
+    letter-spacing:0.05em; margin-bottom:24px; box-shadow:6px 6px 0 var(--ink);
+  }
+  .hero h1{
+    font-family:'Bangers'; font-size:clamp(44px,9vw,90px); line-height:0.95;
+    color:var(--ink); -webkit-text-stroke:2px var(--ink);
+    text-shadow: 4px 4px 0 var(--red);
+    margin-bottom:20px;
+  }
+  .hero p.sub{max-width:560px; margin:0 auto 32px; font-size:22px;}
+
+  .cta-primary{
+    display:inline-block; background:var(--red); color:#fff;
+    font-family:'Bangers'; font-size:22px; letter-spacing:0.03em;
+    padding:16px 40px; text-decoration:none; border:4px solid var(--ink);
+    box-shadow:6px 6px 0 var(--ink); transform:rotate(-1deg);
+    transition:0.15s;
+  }
+  .cta-primary:hover{transform:rotate(-1deg) translate(-2px,-2px); box-shadow:8px 8px 0 var(--ink);}
+  .cta-note{font-size:16px; margin-top:16px; font-family:'Kalam';}
+
+  section{padding:60px 0;}
+  .section-title{
+    font-family:'Bangers'; font-size:clamp(30px,5vw,46px); text-align:center; margin-bottom:6px;
+  }
+  .section-sub{text-align:center; font-family:'Kalam'; margin-bottom:40px; max-width:560px; margin-left:auto; margin-right:auto;}
+
+  /* COMIC PANELS */
+  .comic-strip{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:14px;
+    border:5px solid var(--ink); padding:14px; background:#fff;
+    box-shadow:8px 8px 0 var(--ink);
+  }
+  .panel{
+    border:3px solid var(--ink); background:#fdf9ee; padding:18px;
+    position:relative; min-height:150px; display:flex; align-items:center; justify-content:center;
+  }
+  .panel .caption{
+    position:absolute; top:8px; left:8px; background:var(--yellow); border:2px solid var(--ink);
+    padding:2px 8px; font-family:'Bangers'; font-size:13px;
+  }
+  .panel .speech{
+    background:#fff; border:3px solid var(--ink); border-radius:16px; padding:10px 14px;
+    font-family:'Kalam'; font-weight:700; font-size:15px; text-align:center; max-width:90%;
+  }
+  .panel .sfx{
+    font-family:'Bangers'; font-size:32px; color:var(--red); -webkit-text-stroke:1px var(--ink);
+    transform:rotate(-6deg);
+  }
+  .panel.blue-bg{background:#e9f1fb;}
+  .panel.red-bg{background:#fbe9e7;}
+  .panel.yellow-bg{background:#fff8e0;}
+
+  /* offer as comic panels too */
+  .offer-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px;}
+  .offer-card{
+    border:4px solid var(--ink); background:#fff; padding:26px 22px; text-align:center;
+    box-shadow:6px 6px 0 var(--ink); position:relative;
+  }
+  .offer-card.featured{background:var(--yellow);}
+  .offer-card .tag{
+    position:absolute; top:-16px; left:50%; transform:translateX(-50%) rotate(-3deg);
+    background:var(--red); color:#fff; font-family:'Bangers'; font-size:13px;
+    padding:5px 14px; border:2px solid var(--ink);
+  }
+  .offer-card h3{font-family:'Bangers'; font-size:28px; margin-bottom:8px;}
+  .offer-card p.desc{font-family:'Kalam'; font-size:14px; margin-bottom:18px; min-height:60px;}
+  .offer-card .price .old{text-decoration:line-through; font-size:13px; display:block; font-family:'Kalam';}
+  .offer-card .price .now{font-family:'Bangers'; font-size:32px; color:var(--red); display:block; margin-bottom:16px;}
+  .offer-btn{
+    display:block; background:var(--ink); color:#fff; text-decoration:none;
+    padding:12px; font-family:'Bangers'; font-size:16px; letter-spacing:0.03em;
+    border:2px solid var(--ink);
+  }
+  .offer-card.featured .offer-btn{background:var(--red);}
+
+  /* testimonials as comic bubbles */
+  .quotes-row{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .quote{
+    background:#fff; border:3px solid var(--ink); border-radius:16px; padding:20px;
+    font-family:'Kalam'; text-align:center; position:relative;
+  }
+  .quote::after{
+    content:""; position:absolute; bottom:-14px; left:30px;
+    border-width:14px 10px 0; border-style:solid; border-color:#fff transparent transparent;
+  }
+  .quote::before{
+    content:""; position:absolute; bottom:-18px; left:28px;
+    border-width:16px 12px 0; border-style:solid; border-color:var(--ink) transparent transparent;
+  }
+  .quote .stars{color:var(--yellow); -webkit-text-stroke:1px var(--ink); margin-bottom:8px; font-size:18px;}
+  .quote .src{font-family:'Bangers'; font-size:13px; margin-top:14px;}
+
+  .final{text-align:center; padding:90px 0; border-top:4px solid var(--ink);}
+  .final h2{font-family:'Bangers'; font-size:clamp(30px,6vw,54px); margin-bottom:16px;}
+  .final p{font-family:'Kalam'; max-width:480px; margin:0 auto 30px; font-size:19px;}
+
+  footer{text-align:center; padding:24px 0; font-family:'Bangers'; font-size:13px; letter-spacing:0.03em;}
+
+  @media(max-width:760px){
+    .comic-strip, .offer-grid, .quotes-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">MANUAL DO HUMANO</div>
+    <div class="comic" style="font-size:14px;">A SÉRIE EM QUADRINHOS</div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="burst">15 CAPÍTULOS EM QUADRINHOS!</div>
+    <h1>COMO TREINAR<br>SEU DONO</h1>
+    <p class="sub">A história real de como o Corona assumiu o controle da casa — contada em quadrinhos, narrada por ele mesmo.</p>
+    <a href="#oferta" class="cta-primary">LER AGORA</a>
+    <div class="cta-note">a partir de R$ 19,90</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title">CAPÍTULO 1: A ESCOLHA FOI MINHA</div>
+    <div class="section-sub">Um preview real da série. É assim que cada capítulo é contado.</div>
+
+    <div class="comic-strip">
+      <div class="panel">
+        <div class="caption">1</div>
+        <div class="speech">Era uma tarde comum. Ele entrou sem saber que já estava sendo avaliado.</div>
+      </div>
+      <div class="panel yellow-bg">
+        <div class="caption">2</div>
+        <div class="speech">Cheirava a insegurança e detergente de limão.</div>
+      </div>
+      <div class="panel blue-bg">
+        <div class="caption">3</div>
+        <div class="speech">"Análise iniciada."</div>
+      </div>
+      <div class="panel red-bg">
+        <div class="caption">4</div>
+        <div class="sfx">FUI O ÚNICO QUE NÃO CORREU</div>
+      </div>
+      <div class="panel">
+        <div class="caption">5</div>
+        <div class="speech">Avaliação das mãos: macio ✓ quente ✓ gentil ✓</div>
+      </div>
+      <div class="panel yellow-bg">
+        <div class="caption">6</div>
+        <div class="speech">"Me levantei devagar. Como quem faz um favor."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff; border-top:4px solid var(--ink); border-bottom:4px solid var(--ink);">
+  <div class="wrap">
+    <div class="section-title">O QUE OS LEITORES DIZEM</div>
+    <div class="quotes-row">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Nunca mais olhei pro meu gato igual."</p>
+        <div class="src">LEITOR CONFUSO</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"O sofá nunca mais foi meu."</p>
+        <div class="src">HUMANO ANÔNIMO</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Li chorando de rir."</p>
+        <div class="src">EX-DONO DE CASACO PRETO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-title">DENTRO DA SÉRIE COMPLETA</div>
+    <div class="section-sub">15 capítulos, cada um com 10 quadros. Do abrigo ao sofá, da academia às visitas não autorizadas.</div>
+    <div class="comic-strip">
+      <div class="panel blue-bg">
+        <div class="caption">CAP. 3</div>
+        <div class="speech">"O sofá é meu." — conquista em 3 fases, sem disparar um miado.</div>
+      </div>
+      <div class="panel red-bg">
+        <div class="caption">CAP. 6</div>
+        <div class="speech">"Segredo de Estado" — ele tem uma namorada. Classificado.</div>
+      </div>
+      <div class="panel yellow-bg">
+        <div class="caption">CAP. 8</div>
+        <div class="speech">"A vigilância noturna" — às 3h da manhã o território não dorme.</div>
+      </div>
+      <div class="panel">
+        <div class="caption">CAP. 11</div>
+        <div class="speech">"A reunião de emergência" — técnicas para convocar atenção sem perder a dignidade.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta" style="background:#fff; border-top:4px solid var(--ink);">
+  <div class="wrap">
+    <div class="section-title">ESCOLHE TEU FORMATO</div>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-ebook.jpg" alt="Capa do Ebook Manual do Humano" style="width:100%; border:3px solid var(--ink); margin-bottom:16px;">
+        <h3>EBOOK</h3>
+        <p class="desc">Os 15 capítulos completos em texto + ilustrações.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/TDX60JP" target="_blank" rel="noopener">QUERO O EBOOK</a>
+      </div>
+      <div class="offer-card featured">
+        <div class="tag">MAIS VENDIDO</div>
+        <img src="https://gatocorona.com.br/bundle-stack.jpg" alt="Bundle Manual do Humano completo" style="width:100%; border:3px solid var(--ink); margin-bottom:16px; margin-top:6px;">
+        <h3>BUNDLE</h3>
+        <p class="desc">Ebook + Quadrinhos completos, com desconto.</p>
+        <div class="price"><span class="old">de R$ 39,80</span><span class="now">R$ 25,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener">QUERO OS DOIS</a>
+      </div>
+      <div class="offer-card">
+        <img src="https://gatocorona.com.br/capa-quadrinhos.jpg" alt="Capa dos Quadrinhos Manual do Humano" style="width:100%; border:3px solid var(--ink); margin-bottom:16px;">
+        <h3>QUADRINHOS</h3>
+        <p class="desc">A série completa em quadrinhos ilustrados.</p>
+        <div class="price"><span class="now">R$ 19,90</span></div>
+        <a class="offer-btn" href="https://pay.kiwify.com.br/P980LQ8" target="_blank" rel="noopener">QUERO OS QUADRINHOS</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>EU ENSINO. ELE TENTA. FUNCIONA.</h2>
+    <p>Leia os 15 capítulos e descubra tudo que seu gato já fez com você — e você nem percebeu.</p>
+    <a href="#oferta" class="cta-primary">LER A SÉRIE COMPLETA</a>
+  </div>
+</section>
+
+<footer>MANUAL DO HUMANO © CORONA — TODOS OS SOFÁS RESERVADOS.</footer>
+
+</body>
+</html>
