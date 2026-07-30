@@ -3,186 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual do Humano — por Corona</title>
+<title>Manual do Humano — Dossiê Confidencial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy: #0c1220;
-    --gold: #cda449;
-    --gold-bright: #e8c774;
-    --cream: #f3ecda;
-    --wine: #7a1f2b;
+    --navy:#0b1220;
+    --navy2:#111a2e;
+    --gold:#c9a227;
+    --gold-dim:#8a7020;
+    --cream:#ede6d3;
+    --cream-dim:#b8b09a;
+    --red:#8f2c22;
+    --red-bright:#b23a2e;
+    --line: rgba(201,162,39,0.25);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{
-    height:100%;
-    width:100%;
-    overflow:hidden;
-    background: var(--navy);
-    font-family:'Cormorant Garamond', serif;
-    color: var(--cream);
-  }
-  .bg{
-    position:fixed; inset:0;
-    background-image: url('collage_bg2.jpg');
+  html{scroll-behavior:smooth;}
+  body{
+    background-color:var(--navy);
+    background-image:
+      linear-gradient(rgba(11,18,32,0.90), rgba(11,18,32,0.94)),
+      url('https://gatocorona.com.br/colagem_bg2.jpg');
     background-size: cover;
-    background-position: center;
-    z-index:0;
+    background-position: center top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color:var(--cream);
+    font-family:'EB Garamond', serif;
+    font-size:19px;
+    line-height:1.6;
+    overflow-x:hidden;
   }
-  .bg::after{
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.06em;}
+  h1,h2,h3{font-family:'Cormorant SC', serif; font-weight:700; letter-spacing:0.02em;}
+  a{color:inherit;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--gold); color:var(--navy);}
+
+  /* texture */
+  body::before{
     content:"";
-    position:absolute; inset:0;
-    background:
-      radial-gradient(ellipse at center, rgba(7,10,18,0.22) 0%, rgba(7,10,18,0.5) 60%, rgba(7,10,18,0.72) 100%);
-  }
-  .stage{
-    position:relative; z-index:1;
-    height:100vh; width:100vw;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding: 3vh 4vw;
-    text-align:center;
-  }
-  .header-block{
-    background: radial-gradient(ellipse at center, rgba(7,10,18,0.72) 0%, rgba(7,10,18,0.4) 70%, rgba(7,10,18,0) 100%);
-    padding: 2.4vh 5vw 2.8vh;
-    border-radius: 12px;
-  }
-  .eyebrow{
-    font-family:'Cinzel', serif; letter-spacing:0.26em; font-size:clamp(10px,1.1vw,13px);
-    color: var(--gold); text-transform:uppercase; margin-bottom:1.2vh;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
-  }
-  .eyebrow::before, .eyebrow::after{ content:"♛"; margin:0 12px; font-size:0.8em; opacity:0.7; }
-  h1{
-    font-family:'Cinzel', serif; font-weight:800;
-    font-size: clamp(30px, 4.6vw, 58px); line-height:1.05;
-    color: var(--gold-bright);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.95), 0 0 50px rgba(0,0,0,0.85);
-  }
-  .sub{
-    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500;
-    font-size: clamp(14px, 1.5vw, 20px); color:#f3ecda; margin-top:1vh; max-width:640px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.95);
+    position:fixed; inset:0;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:1;
   }
 
-  .grid{
-    margin-top: clamp(20px,3.4vh,40px);
-    display:flex; gap: clamp(14px,1.8vw,28px);
-    width:100%; max-width:1180px;
-    justify-content:center;
+  /* ---- top bar ---- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,18,32,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:14px 0;
   }
-  .card{
-    flex:1; max-width:340px;
-    background: rgba(9,13,24,0.86);
-    border: 1px solid rgba(205,164,73,0.4);
-    border-radius: 6px;
-    padding: clamp(14px,1.8vh,24px) clamp(14px,1.6vw,22px);
-    display:flex; flex-direction:column; align-items:center;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .topbar .brand{font-family:'Cormorant SC'; font-weight:700; font-size:20px; color:var(--gold);}
+  .topbar .file-id{font-size:11px; color:var(--cream-dim); font-family:'IBM Plex Mono';}
+
+  /* ---- hero ---- */
+  .hero{
     position:relative;
+    padding:90px 0 70px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
   }
-  .card.featured{
-    border-color: var(--gold-bright);
-    background: linear-gradient(160deg, rgba(122,31,43,0.35), rgba(12,18,32,0.78));
-    box-shadow: 0 0 0 1px rgba(232,199,116,0.15), 0 20px 50px rgba(0,0,0,0.5);
-    transform: translateY(-6px);
-  }
-  .badge{
-    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
-    font-family:'Cinzel',serif; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase;
-    color:var(--navy); background: var(--gold-bright); padding:5px 14px; border-radius:20px; font-weight:700;
-    white-space:nowrap;
-  }
-  .card img{
-    width: 100%;
-    max-height: 22vh;
-    object-fit: contain;
-    filter: drop-shadow(0 12px 24px rgba(0,0,0,0.55));
-    margin-bottom: clamp(8px,1.4vh,16px);
-  }
-  .card h3{
-    font-family:'Cinzel',serif; font-size: clamp(15px,1.3vw,19px); color:var(--gold-bright);
-    margin-bottom: 4px; letter-spacing:0.02em;
-  }
-  .card p.desc{
-    color:#cfc4a4; font-size: clamp(12.5px,1vw,15px); line-height:1.35;
-    margin-bottom: clamp(8px,1.2vh,14px);
-    min-height: 0;
-  }
-  .price-row{ display:flex; align-items:baseline; gap:8px; margin-bottom: clamp(8px,1.2vh,14px); }
-  .price{ font-family:'Inter',sans-serif; font-weight:800; font-size: clamp(20px,1.9vw,28px); color:var(--cream); }
-  .was{ font-family:'Inter',sans-serif; font-size:13px; color:#a89a76; text-decoration:line-through; }
-  .btn{
-    font-family:'Inter',sans-serif; font-weight:700; font-size: clamp(12.5px,1vw,14.5px); letter-spacing:0.02em;
-    text-decoration:none; color:var(--navy); background: var(--gold-bright);
-    padding: clamp(9px,1.2vh,13px) clamp(18px,2vw,26px); border-radius:3px; display:inline-block;
-    box-shadow: 0 6px 16px rgba(205,164,73,0.22);
-    width:100%;
-  }
-  .btn.wine{ background: var(--gold-bright); }
-
-  footer{
-    position:absolute; bottom: 14px; left:0; right:0;
-    text-align:center; z-index:2;
-  }
-  footer p{
+  .stamp{
     display:inline-block;
-    font-family:'Cinzel',serif; font-size:10.5px; letter-spacing:0.14em; color:#c9bb92; text-transform:uppercase;
-    background: rgba(7,10,18,0.65);
-    padding: 6px 16px;
-    border-radius: 20px;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.9);
-  }
-
-  @media (max-width: 760px){
-    html,body{ overflow-y:auto; height:auto; }
-    .stage{ height:auto; min-height:100vh; padding: 5vh 5vw 8vh; }
-    .grid{ flex-direction:column; align-items:center; }
-    .card{ max-width:380px; width:100%; }
-    .card.featured{ order:-1; transform:none; }
-    footer{ position:relative; margin-top:24px; }
-  }
-</style>
-</head>
-<body>
-  <div class="bg"></div>
-  <div class="stage">
-    <div class="header-block">
-      <div class="eyebrow">Um guia definitivo</div>
-      <h1>Manual do Humano</h1>
-      <p class="sub">Como treinar seu dono em 30 dias — narrado com orgulho por Corona.</p>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <img src="capa-ebook.jpg" alt="Capa do Ebook Manual do Humano">
-        <h3>O Ebook</h3>
-        <p class="desc">15 capítulos com a narrativa de Corona + a ciência por trás de cada comportamento.</p>
-        <div class="price-row"><span class="price">R$ 19,90</span></div>
-        <a class="btn" href="https://pay.kiwify.com.br/TDX60JP" target="_blank" rel="noopener">Quero o ebook</a>
-      </div>
-
-      <div class="card featured">
-        <div class="badge">Escolha de Corona</div>
-        <img src="bundle-stack.jpg" alt="Bundle Manual do Humano completo">
-        <h3>Bundle Completo</h3>
-        <p class="desc">Ebook + quadrinhos juntos, com desconto. A coleção completa da sabedoria felina.</p>
-        <div class="price-row"><span class="price">R$ 25,90</span><span class="was">R$ 39,80</span></div>
-        <a class="btn wine" href="https://pay.kiwify.com.br/gmC7Euc" target="_blank" rel="noopener">Quero o bundle</a>
-      </div>
-
-      <div class="card">
-        <img src="capa-quadrinhos.jpg" alt="Capa dos Quadrinhos Manual do Humano">
-        <h3>Os Quadrinhos</h3>
-        <p class="desc">13 capítulos em tirinhas — a mesma sabedoria felina, agora ilustrada.</p>
-        <div class="price-row"><span class="price">R$ 19,90</span></div>
-        <a class="btn" href="https://pay.kiwify.com.br/P980LQ8" target="_blank" rel="noopener">Quero os quadrinhos</a>
-      </div>
-    </div>
-  </div>
-
-  <footer><p>Manual do Humano © Corona — todos os sofás reservados</p></footer>
-</body>
-</html>
+    border:3px solid var(--red-bright);
